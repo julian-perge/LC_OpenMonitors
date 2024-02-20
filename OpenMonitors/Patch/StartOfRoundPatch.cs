@@ -22,9 +22,10 @@ public class StartOfRoundPatch
     private static void RefreshMonitorsWhenPlayerRevives()
     {
         Log.LogDebug("StartOfRound.RefreshMonitorsWhenPlayerRevives");
-        LootMonitor.Instance.UpdateMonitor();
         CreditsMonitor.Instance.UpdateMonitor();
         DayMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        LootMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
@@ -56,7 +57,7 @@ public class StartOfRoundPatch
     [HarmonyPatch(nameof(StartOfRound.StartGame))]
     private static void UpdateDayAtStartOfGame()
     {
-        Log.LogDebug("StartOfRound.StartGame");
+        Log.LogDebug("StartOfRound.UpdateDayAtStartOfGame");
         DayMonitor.Instance.UpdateMonitor();
     }
 

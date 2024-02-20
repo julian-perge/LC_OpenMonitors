@@ -60,7 +60,7 @@ public class PlayerControllerBPatch
 
     [HarmonyPostfix]
     [HarmonyPatch(nameof(PlayerControllerB.KillPlayer))]
-    private static void UpdateLifeSupportMonitor(
+    private static void UpdateLifeSupportMonitorOnPlayerDeath(
         PlayerControllerB __instance,
         Vector3 bodyVelocity,
         bool spawnBody,
@@ -68,7 +68,7 @@ public class PlayerControllerBPatch
         int deathAnimation
     )
     {
-        Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitor");
+        Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeath");
         LifeSupportMonitor.Instance.UpdateMonitor();
     }
 }

@@ -25,6 +25,6 @@ public class LifeSupportMonitor : MonoBehaviour
     public void UpdateMonitor()
     {
         Log.LogDebug($"{name} -> UpdateMonitor()");
-        _textMesh.text = $"ALIVE:\n${_startOfRound.livingPlayers}";
+        _textMesh.text = Config.HideLifeSupport.Value ? string.Empty : $"ALIVE:\n${_startOfRound.livingPlayers}";
     }
 }
