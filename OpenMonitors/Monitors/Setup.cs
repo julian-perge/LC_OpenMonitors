@@ -61,6 +61,13 @@ internal static class Setup
                 new Vector3(1170f, 540f, -310.3f),
                 TopRowLocalRotation + RightMonitorGroupLocalRotation
             )
+        },
+        {
+            9,
+            new Tuple<Vector3, Vector3>(
+                new Vector3(818f, -493f, -196f),
+                LeftMonitorGroupBottomRowLocalRotation + RightMonitorGroupLocalRotation
+            )
         }
     };
 
@@ -96,6 +103,12 @@ internal static class Setup
         CreditsMonitor.Instance = CreateMonitor<CreditsMonitor>(Config.CreditsMonitorSlot.Value);
 
         DayMonitor.Instance = CreateMonitor<DayMonitor>(Config.DayMonitorSlot.Value);
+        
+        // Player Alive monitor
+        // local position = (818, -493, -196)
+        // local rotation = (9.5577, 24.9, 5.4)
+        
+        PlayersLifeSupportMonitor.Instance = CreateMonitor<PlayersLifeSupportMonitor>(9);
     }
 
     private static T CreateMonitor<T>(int targetSlot) where T : MonoBehaviour

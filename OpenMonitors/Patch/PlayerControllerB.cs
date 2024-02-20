@@ -9,11 +9,11 @@ using static OpenMonitors.Plugin;
 
 namespace OpenMonitors.Patch;
 
-[HarmonyPatch(typeof(PlayerControllerB))]
-public class PlayerControllerBPatch
+[HarmonyPatch(typeof(GameNetcodeStuff.PlayerControllerB))]
+public class PlayerControllerB
 {
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(PlayerControllerB.ConnectClientToPlayerObject))]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.ConnectClientToPlayerObject))]
     private static void OnPlayerConnect()
     {
         CoroutineHelper.Instance.StartCoroutine(WaitOnPlayerConnectForMonitorsToBeCreated());
@@ -27,11 +27,12 @@ public class PlayerControllerBPatch
         );
         CreditsMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(PlayerControllerB.GrabObjectClientRpc))]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.GrabObjectClientRpc))]
     private static void RefreshLootOnPickupClient(bool grabValidated, ref NetworkObjectReference grabbedObject)
     {
         if (grabbedObject.TryGet(out var networkObject))
@@ -46,7 +47,7 @@ public class PlayerControllerBPatch
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(PlayerControllerB.ThrowObjectClientRpc))]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.ThrowObjectClientRpc))]
     private static void RefreshLootOnThrowClient(
         bool droppedInElevator,
         bool droppedInShipRoom,
@@ -62,9 +63,8 @@ public class PlayerControllerBPatch
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(PlayerControllerB.KillPlayer))]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.KillPlayer))]
     private static void UpdateLifeSupportMonitorOnPlayerDeath(
-        PlayerControllerB __instance,
         Vector3 bodyVelocity,
         bool spawnBody,
         CauseOfDeath causeOfDeath,
@@ -73,5 +73,21 @@ public class PlayerControllerBPatch
     {
         Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeath");
         LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.KillPlayerClientRpc))]
+    private static void UpdateLifeSupportMonitorOnPlayerDeathClientRpc(
+        int playerId,
+        bool spawnBody,
+        Vector3 bodyVelocity,
+        int causeOfDeath,
+        int deathAnimation
+    )
+    {
+        Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeathClientRpc");
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 }

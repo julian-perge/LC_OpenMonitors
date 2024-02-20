@@ -2,6 +2,8 @@
 
 - Inspiration and 95% credit goes
   to [Jamil's CorporateRestructure](https://thunderstore.io/c/lethal-company/p/Jamil/Corporate_Restructure/)
+- Completely client-side, meaning you can have it installed and play with your friends, even if they don't have this
+  mod installed!
 
 While the `CorporateRestructure` mod gave most of what I wanted:
 
@@ -19,13 +21,23 @@ While the `CorporateRestructure` mod gave most of what I wanted:
 
 _Each monitor may be hidden from view via configuration setting._
 
-- Ship Loot
+- Loot
 - Time of Day
 - Credits
 - Total Days (Clients display `?` until the first day is completed)
 - Life Support (Number of players still alive)
+- Players Life Support 
+    - Overlays on top of the outside camera ship monitor. 
+    - Shows, by name, the life support of each player.
+    - Should a player go to forever sleep, their name will have `(DEAD)` in red next to their name.
+    - Should a player receive harm to their health, but not sleep forever (<= 50), their name will have `(INJURED)` in
+      yellow next to their name.
 
 ![img.png](https://imgur.com/uULiUwe.png)
+
+![img.png](https://imgur.com/KEyFney.png)
+
+![img.png](https://imgur.com/8hdpjWP.png)
 
 ## Navigation Monitor [Client]
 
@@ -54,8 +66,8 @@ Weather condition is colored based on the condition:
 
 `3`: CAMERA INSIDE SHIP
 
-- This slot is not a possible choice for the new monitors, because it's the camera inside the ship, which I'd rather 
-not touch for now.
+- This slot is not a possible choice for the new monitors, because it's the camera inside the ship, which I'd rather
+  not touch for now.
 - If you set a monitor to use slot 3, that monitor will revert back to it's default slot position.
 
 `4`: LIFE SUPPORT

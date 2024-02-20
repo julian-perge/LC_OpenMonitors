@@ -6,11 +6,11 @@ using static OpenMonitors.Plugin;
 
 namespace OpenMonitors.Patch;
 
-[HarmonyPatch(typeof(StartOfRound))]
-public class StartOfRoundPatch
+[HarmonyPatch(typeof(global::StartOfRound))]
+public class StartOfRound
 {
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.Start))]
+    [HarmonyPatch(nameof(global::StartOfRound.Start))]
     private static void Initialize()
     {
         Log.LogDebug("StartOfRound.Initialize");
@@ -18,7 +18,7 @@ public class StartOfRoundPatch
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.ReviveDeadPlayers))]
+    [HarmonyPatch(nameof(global::StartOfRound.ReviveDeadPlayers))]
     private static void RefreshMonitorsWhenPlayerRevives()
     {
         Log.LogDebug("StartOfRound.RefreshMonitorsWhenPlayerRevives");
@@ -26,10 +26,11 @@ public class StartOfRoundPatch
         DayMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
         LootMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.SyncShipUnlockablesClientRpc))]
+    [HarmonyPatch(nameof(global::StartOfRound.SyncShipUnlockablesClientRpc))]
     private static void RefreshLootForClientOnStart()
     {
         Log.LogDebug("StartOfRound.RefreshLootForClientOnStart");
@@ -37,7 +38,7 @@ public class StartOfRoundPatch
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.ChangeLevelClientRpc))]
+    [HarmonyPatch(nameof(global::StartOfRound.ChangeLevelClientRpc))]
     private static void UpdateCreditsWhenSwitchingMoons()
     {
         Log.LogDebug("StartOfRound.UpdateCreditsWhenSwitchingMoons");
@@ -46,33 +47,80 @@ public class StartOfRoundPatch
 
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.EndOfGameClientRpc))]
+    [HarmonyPatch(nameof(global::StartOfRound.EndOfGameClientRpc))]
     private static void RefreshDayWhenShipHasLeft()
     {
         Log.LogDebug("StartOfRound.RefreshDayWhenShipHasLeft");
         DayMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.StartGame))]
+    [HarmonyPatch(nameof(global::StartOfRound.StartGame))]
     private static void UpdateDayAtStartOfGame()
     {
         Log.LogDebug("StartOfRound.UpdateDayAtStartOfGame");
         DayMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(StartOfRound.SetMapScreenInfoToCurrentLevel))]
+    [HarmonyPatch(nameof(global::StartOfRound.OnClientConnect))]
+    private static void UpdateMonitorsWhenPlayerConnectsClient(ulong clientId)
+    {
+        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClient");
+        CreditsMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+        LootMonitor.Instance.UpdateMonitor();
+    }
+    
+    
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(global::StartOfRound.OnPlayerConnectedClientRpc))]
+    private static void UpdateMonitorsWhenPlayerConnectsClientRpc(
+        ulong clientId,
+        int connectedPlayers,
+        ulong[] connectedPlayerIdsOrdered,
+        int assignedPlayerObjectId,
+        int serverMoneyAmount,
+        int levelID,
+        int profitQuota,
+        int timeUntilDeadline,
+        int quotaFulfilled,
+        int randomSeed  
+    )
+    {
+        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClientRpc");
+        CreditsMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        LootMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(global::StartOfRound.OnPlayerDC))]
+    private static void UpdateMonitorsWhenPlayerDisconnects(int playerObjectNumber, ulong clientId)
+    {
+        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerDisconnects");
+        CreditsMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
+        LootMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(global::StartOfRound.SetMapScreenInfoToCurrentLevel))]
     // ReSharper disable twice InconsistentNaming
     private static void ColorWeather(ref TextMeshProUGUI ___screenLevelDescription, ref SelectableLevel ___currentLevel)
     {
         ___screenLevelDescription.text = new StringBuilder()
             .Append("Orbiting: ")
-            .Append(___currentLevel.PlanetName)
-            .AppendLine()
+            .AppendLine(___currentLevel.PlanetName)
             .Append("Weather: ")
-            .Append(FormatWeather(___currentLevel.currentWeather))
-            .AppendLine()
+            .AppendLine(FormatWeather(___currentLevel.currentWeather))
             .Append(___currentLevel.LevelDescription ?? string.Empty)
             .ToString();
     }

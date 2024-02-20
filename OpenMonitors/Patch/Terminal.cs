@@ -6,11 +6,11 @@ using static OpenMonitors.Plugin;
 
 namespace OpenMonitors.Patch;
 
-[HarmonyPatch(typeof(Terminal))]
-public class TerminalPatch
+[HarmonyPatch(typeof(global::Terminal))]
+public class Terminal
 {
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(Terminal.SyncGroupCreditsClientRpc))]
+    [HarmonyPatch(nameof(global::Terminal.SyncGroupCreditsClientRpc))]
     private static void RefreshMoney()
     {
         Log.LogDebug("Terminal.RefreshMoney");
@@ -18,9 +18,9 @@ public class TerminalPatch
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(nameof(Terminal.TextPostProcess))]
+    [HarmonyPatch(nameof(global::Terminal.TextPostProcess))]
     // ReSharper disable once InconsistentNaming
-    private static string HideWeatherConditions(string __result)
+    private static string WeatherConditions(string __result)
     {
         if (Config.HideWeather.Value)
         {

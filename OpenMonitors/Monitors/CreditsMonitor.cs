@@ -14,17 +14,17 @@ public class CreditsMonitor : MonoBehaviour
 
     public void Start()
     {
-        Log.LogDebug("CreditMonitor -> Start()");
+        Log.LogDebug($"{name} -> Start()");
         if (!Instance) Instance = this;
         _textMesh = GetComponent<TextMeshProUGUI>();
         _terminal = FindObjectOfType<Terminal>();
-        Log.LogDebug("CreditMonitor -> Start() -> UpdateMonitor()");
+        Log.LogDebug($"{name} -> Start() -> UpdateMonitor()");
         UpdateMonitor();
     }
 
     public void UpdateMonitor()
     {
-        Log.LogDebug("CreditMonitor -> UpdateMonitor()");
+        Log.LogDebug($"{name} -> UpdateMonitor()");
         _textMesh.text = Config.HideCredits.Value ? string.Empty : $"CREDITS:\n${_terminal.groupCredits}";
     }
 }
