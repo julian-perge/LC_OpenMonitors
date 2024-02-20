@@ -71,13 +71,3 @@ not touch for now.
 | 5 | 6 | 7     | 8 |
 |---|---|-------|---|
 | 1 | 2 | ~~3~~ | 4 |
-
-## Release Notes
-
-### 1.0.1
-
-- Fixing readme images... whoops
-
-### 1.0.0
-
-- Initial release!

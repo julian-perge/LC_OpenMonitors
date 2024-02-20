@@ -1,7 +1,9 @@
 {
   "name": "OpenMonitors",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/julian-perge/LC_OpenMonitors/tree/main/OpenMonitors",
   "description": "An open source variation of CorporateRestructure, with additional features and improvements.",
-  "dependencies": []
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100"
+  ]
 }
