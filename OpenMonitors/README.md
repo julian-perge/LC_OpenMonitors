@@ -71,11 +71,3 @@ not touch for now.
 | 5 | 6 | 7     | 8 |
 |---|---|-------|---|
 | 1 | 2 | ~~3~~ | 4 |
-
-`0`: MOON ORBIT / BIRD'S EYE PLAYER VIEW
-
-`9`: CAMERA OUTSIDE SHIP
-
-| 00000<br/>00000 | 99999<br/>99999 |
-|-----------------|-----------------|
-
