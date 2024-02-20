@@ -25,7 +25,7 @@ _Each monitor may be hidden from view via configuration setting._
 - Total Days (Clients display `?` until the first day is completed)
 - Life Support (Number of players still alive)
 
-![img.png](docs/images/monitors.png)
+![img.png](https://imgur.com/uULiUwe.png)
 
 ## Navigation Monitor [Client]
 
@@ -41,10 +41,10 @@ Weather condition is colored based on the condition:
 - Flooded = <span style="color:#FF9B00;">Orange</span>
 - Eclipsed = <span style="color:#FF0000;">Red</span>
 
-<img src="docs/images/nav_monitor_none.png" width="42%" height="42%" />
-<img src="docs/images/nav_monitor_yellow.png" width="42%" height="42%" />
-<img src="docs/images/nav_monitor_orange.png" width="42%" height="42%" />
-<img src="docs/images/nav_monitor_red.png" width="42%" height="42%" />
+<img src="https://imgur.com/vsYq94q.png" width="42%" height="42%" />
+<img src="https://imgur.com/ohZKRTg.png" width="42%" height="42%" />
+<img src="https://imgur.com/Qtzn8O6.png" width="42%" height="42%" />
+<img src="https://imgur.com/t0DhrAo.png" width="42%" height="42%" />
 
 ## Monitor Layout
 
@@ -71,3 +71,13 @@ not touch for now.
 | 5 | 6 | 7     | 8 |
 |---|---|-------|---|
 | 1 | 2 | ~~3~~ | 4 |
+
+## Release Notes
+
+### 1.0.1
+
+- Fixing readme images... whoops
+
+### 1.0.0
+
+- Initial release!
