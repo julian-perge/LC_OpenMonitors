@@ -16,14 +16,17 @@ public class PlayerControllerBPatch
     [HarmonyPatch(nameof(PlayerControllerB.ConnectClientToPlayerObject))]
     private static void OnPlayerConnect()
     {
-        CoroutineHelper.Instance.StartCoroutine(WaitForCreditMonitorToBeCreated());
+        CoroutineHelper.Instance.StartCoroutine(WaitOnPlayerConnectForMonitorsToBeCreated());
     }
 
-    private static IEnumerator WaitForCreditMonitorToBeCreated()
+    private static IEnumerator WaitOnPlayerConnectForMonitorsToBeCreated()
     {
-        Log.LogDebug("WaitForCreditMonitorToBeCreated");
-        yield return new WaitUntil(() => Object.FindObjectOfType<CreditsMonitor>());
+        Log.LogDebug("WaitOnPlayerConnectForMonitorsToBeCreated");
+        yield return new WaitUntil(
+            () => Object.FindObjectOfType<CreditsMonitor>() && Object.FindObjectOfType<LifeSupportMonitor>()
+        );
         CreditsMonitor.Instance.UpdateMonitor();
+        LifeSupportMonitor.Instance.UpdateMonitor();
     }
 
 

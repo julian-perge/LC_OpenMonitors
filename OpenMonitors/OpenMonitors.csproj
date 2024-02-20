@@ -3,8 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net481</TargetFramework>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <Description>A template for Lethal Company</Description>
-        <Version>1.0.2</Version>
+        <Description>Quality of Life Improvements for Montiors</Description>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
@@ -39,6 +38,6 @@
     </Target>
 
     <Target Name="ZipFiles" AfterTargets="Build" Condition="$(Configuration) == 'Thunderstore' ">
-        <Exec Command="7z u -tzip $(PackageId).zip .\README.md .\manifest.json .\icon.png $(TargetDir)$(ProjectName).dll"/>
+        <Exec Command="7z u -tzip $(PackageId).zip .\README.md .\CHANGELOG.md .\manifest.json .\docs\images\icon.png $(TargetDir)$(ProjectName).dll"/>
     </Target>
 </Project>
