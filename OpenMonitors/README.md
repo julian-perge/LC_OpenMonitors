@@ -54,10 +54,11 @@ Weather condition is colored based on the condition:
 
 `3`: CAMERA INSIDE SHIP
 
-- This slot is not a possible choice for the new monitors, mostly because I'd rather not modify more than is necessary.
+- This slot is not a possible choice for the new monitors, because it's the camera inside the ship, which I'd rather 
+not touch for now.
 - If you set a monitor to use slot 3, that monitor will revert back to it's default slot position.
 
-`4`: UNUSED
+`4`: LIFE SUPPORT
 
 `5`: LOOT
 
