@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net481</TargetFramework>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <Description>A template for Lethal Company</Description>
+        <Version>1.0.0</Version>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <LangVersion>latest</LangVersion>
+        <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+        <Configurations>Debug;Release;HotReload;Thunderstore</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <ManagedFolder>C:\Program Files (x86)\GOG Galaxy\Games\Inscryption\Inscryption_Data\Managed</ManagedFolder>
+        <Nullable>enable</Nullable>
+        <PackageId>OpenMonitors</PackageId>
+        <RootNamespace>OpenMonitors</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.*"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
+        <PackageReference Include="LethalCompany.GameLibs.Steam" Version="49.0.0-alpha.1"/>
+        <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <Target Name="CopyDLLs" AfterTargets="Build" Condition="$(Configuration) == 'Debug' or $(Configuration) == 'Release' ">
+        <Message Text="Executing CopyDLLs task" Importance="High"/>
+
+        <Copy SourceFiles="$(TargetDir)$(ProjectName).dll"
+              DestinationFolder="C:\Users\Jules\AppData\Roaming\r2modmanPlus-local\LethalCompany\profiles\Solo\BepInEx\plugins\OpenStructure"
+        />
+
+        <Message Text="Copied build files" Importance="High"/>
+    </Target>
+
+    <Target Name="ZipFiles" AfterTargets="Build" Condition="$(Configuration) == 'Thunderstore' ">
+        <Exec Command="7z u -tzip OpenMonitors.zip .\README.md .\manifest.json .\icon.png $(TargetDir)$(ProjectName).dll"/>
+    </Target>
+</Project>
