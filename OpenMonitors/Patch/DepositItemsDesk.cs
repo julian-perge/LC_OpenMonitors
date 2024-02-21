@@ -11,7 +11,7 @@ public class DepositItemsDesk
     [HarmonyPatch(nameof(global::DepositItemsDesk.SellAndDisplayItemProfits))]
     private static void UpdateCreditsAfterSellingLoot()
     {
-        Log.LogDebug("DepositItemsDesk.UpdateCreditsAfterSellingLoot");
+        ModLogger.LogDebug("DepositItemsDesk.UpdateCreditsAfterSellingLoot");
         CreditsMonitor.Instance.UpdateMonitor();
     }
 }

@@ -15,24 +15,24 @@ public class LootMonitor : MonoBehaviour
 
     public void Start()
     {
-        Log.LogDebug($"{name} -> Start()");
+        ModLogger.LogDebug($"{name} -> Start()");
         if (!Instance) Instance = this;
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.text = "LOOT:\n$NaN";
         _ship = GameObject.Find("/Environment/HangarShip");
-        Log.LogDebug($"{name} -> Start() -> UpdateMonitor()");
+        ModLogger.LogDebug($"{name} -> Start() -> UpdateMonitor()");
         UpdateMonitor();
     }
 
     public void UpdateMonitor()
     {
-        Log.LogDebug($"{name} -> UpdateMonitor()");
+        ModLogger.LogDebug($"{name} -> UpdateMonitor()");
         textMesh.text = Config.HideLoot.Value ? string.Empty : $"LOOT:\n${Calculate()}";
     }
 
     private float Calculate()
     {
-        Log.LogDebug($"{name} -> Calculate()");
+        ModLogger.LogDebug($"{name} -> Calculate()");
         return (
             from grabbable in _ship.GetComponentsInChildren<GrabbableObject>()
             where CheckIfItemIsScrapAndOnShipFloor(grabbable)

@@ -11,7 +11,7 @@ public class TimeOfDay
     [HarmonyPatch(nameof(global::TimeOfDay.SyncNewProfitQuotaClientRpc))]
     private static void UpdateCreditsAfterReachingQuota()
     {
-        Log.LogDebug("TimeOfDay.UpdateCreditsAfterReachingQuota");
+        ModLogger.LogDebug("TimeOfDay.UpdateCreditsAfterReachingQuota");
         CreditsMonitor.Instance.UpdateMonitor();
     }
 

@@ -13,7 +13,7 @@ public class Terminal
     [HarmonyPatch(nameof(global::Terminal.SyncGroupCreditsClientRpc))]
     private static void RefreshMoney()
     {
-        Log.LogDebug("Terminal.RefreshMoney");
+        ModLogger.LogDebug("Terminal.RefreshMoney");
         CreditsMonitor.Instance.UpdateMonitor();
     }
 

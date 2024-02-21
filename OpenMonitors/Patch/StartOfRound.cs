@@ -13,7 +13,7 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.Start))]
     private static void Initialize()
     {
-        Log.LogDebug("StartOfRound.Initialize");
+        ModLogger.LogDebug("StartOfRound.Initialize");
         Setup.Initialize();
     }
 
@@ -21,7 +21,7 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.ReviveDeadPlayers))]
     private static void RefreshMonitorsWhenPlayerRevives()
     {
-        Log.LogDebug("StartOfRound.RefreshMonitorsWhenPlayerRevives");
+        ModLogger.LogDebug("StartOfRound.RefreshMonitorsWhenPlayerRevives");
         CreditsMonitor.Instance.UpdateMonitor();
         DayMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
@@ -33,7 +33,7 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.SyncShipUnlockablesClientRpc))]
     private static void RefreshLootForClientOnStart()
     {
-        Log.LogDebug("StartOfRound.RefreshLootForClientOnStart");
+        ModLogger.LogDebug("StartOfRound.RefreshLootForClientOnStart");
         LootMonitor.Instance.UpdateMonitor();
     }
 
@@ -41,7 +41,7 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.ChangeLevelClientRpc))]
     private static void UpdateCreditsWhenSwitchingMoons()
     {
-        Log.LogDebug("StartOfRound.UpdateCreditsWhenSwitchingMoons");
+        ModLogger.LogDebug("StartOfRound.UpdateCreditsWhenSwitchingMoons");
         CreditsMonitor.Instance.UpdateMonitor();
     }
 
@@ -50,27 +50,23 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.EndOfGameClientRpc))]
     private static void RefreshDayWhenShipHasLeft()
     {
-        Log.LogDebug("StartOfRound.RefreshDayWhenShipHasLeft");
+        ModLogger.LogDebug("StartOfRound.RefreshDayWhenShipHasLeft");
         DayMonitor.Instance.UpdateMonitor();
-        LifeSupportMonitor.Instance.UpdateMonitor();
-        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(nameof(global::StartOfRound.StartGame))]
     private static void UpdateDayAtStartOfGame()
     {
-        Log.LogDebug("StartOfRound.UpdateDayAtStartOfGame");
+        ModLogger.LogDebug("StartOfRound.UpdateDayAtStartOfGame");
         DayMonitor.Instance.UpdateMonitor();
-        LifeSupportMonitor.Instance.UpdateMonitor();
-        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 
     [HarmonyPostfix]
     [HarmonyPatch(nameof(global::StartOfRound.OnClientConnect))]
     private static void UpdateMonitorsWhenPlayerConnectsClient(ulong clientId)
     {
-        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClient");
+        ModLogger.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClient");
         CreditsMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
         PlayersLifeSupportMonitor.Instance.UpdateMonitor();
@@ -93,7 +89,7 @@ public class StartOfRound
         int randomSeed  
     )
     {
-        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClientRpc");
+        ModLogger.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClientRpc");
         CreditsMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
         LootMonitor.Instance.UpdateMonitor();
@@ -104,7 +100,7 @@ public class StartOfRound
     [HarmonyPatch(nameof(global::StartOfRound.OnPlayerDC))]
     private static void UpdateMonitorsWhenPlayerDisconnects(int playerObjectNumber, ulong clientId)
     {
-        Log.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerDisconnects");
+        ModLogger.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerDisconnects");
         CreditsMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
         LootMonitor.Instance.UpdateMonitor();
@@ -127,7 +123,7 @@ public class StartOfRound
 
     private static string FormatWeather(LevelWeatherType currentWeather)
     {
-        Log.LogDebug($"Weather: {currentWeather}");
+        ModLogger.LogDebug($"Weather: {currentWeather}");
         string text;
         switch (currentWeather)
         {

@@ -65,8 +65,8 @@ internal static class Setup
         {
             9,
             new Tuple<Vector3, Vector3>(
-                new Vector3(818f, -493f, -196f),
-                LeftMonitorGroupBottomRowLocalRotation + RightMonitorGroupLocalRotation
+                new Vector3(905f, -545f, -235f),
+                new Vector3(10.5f, 26.2f, 5.2f)
             )
         }
     };
@@ -82,7 +82,7 @@ internal static class Setup
         _quotaMonitorText.transform.localPosition = qLocalPosition;
         _quotaMonitorText.transform.localRotation = Quaternion.Euler(qLocalRotation);
         // BG is the blue background of the quota monitor
-        Log.LogDebug("Destroying Quota BG");
+        ModLogger.LogDebug("Destroying Quota BG");
         Object.Destroy(GameObject.Find(MonitorContainerPath + "/BG"));
         // DEADLINE: 7 Days, 3 hours
         _deadlineMonitorText = GameObject.Find(MonitorContainerPath + "/HeaderText (1)");
@@ -91,7 +91,7 @@ internal static class Setup
         _deadlineMonitorText.transform.localPosition = dLocalPosition;
         _deadlineMonitorText.transform.localRotation = Quaternion.Euler(dLocalRotation);
         // BG (1) is the blue background of the deadline monitor
-        Log.LogDebug("Destroying Deadline BG");
+        ModLogger.LogDebug("Destroying Deadline BG");
         Object.Destroy(GameObject.Find(MonitorContainerPath + "/BG (1)"));
 
         LifeSupportMonitor.Instance = CreateMonitor<LifeSupportMonitor>(Config.LifeSupportMonitorSlot.Value);
@@ -143,7 +143,7 @@ internal static class Setup
          *  - rotation: (351, 24.5, 5.6)
          */
         var monitorName = typeof(T).Name.Replace("Monitor", "");
-        Log.LogDebug($"Creating Monitor {monitorName}");
+        ModLogger.LogDebug($"Creating Monitor {monitorName}");
         var monitor = Object.Instantiate(_quotaMonitorText, _mainContainer.transform);
         monitor.name = monitorName;
         var monitorText = monitor.GetComponent<TextMeshProUGUI>();
@@ -152,7 +152,7 @@ internal static class Setup
 
         monitorText.transform.localPosition = localPosition;
         monitorText.transform.localRotation = Quaternion.Euler(localRotation);
-        Log.LogDebug($"Monitor {monitorName} created");
+        ModLogger.LogDebug($"Monitor {monitorName} created");
         return monitor.AddComponent<T>();
     }
 }

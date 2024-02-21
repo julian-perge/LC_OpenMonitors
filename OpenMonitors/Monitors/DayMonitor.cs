@@ -12,24 +12,24 @@ public class DayMonitor : MonoBehaviour
 
     public void Start()
     {
-        Log.LogDebug($"{name} -> Start()");
+        ModLogger.LogDebug($"{name} -> Start()");
         if (!Instance) Instance = this;
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.text = Config.HideDay.Value ? string.Empty : "DAY:\n?";
         if (StartOfRound.Instance.IsHost)
         {
-            Log.LogDebug($"{name} -> Start() -> IsHost");
+            ModLogger.LogDebug($"{name} -> Start() -> IsHost");
             UpdateMonitor();
         }
         else
         {
-            Log.LogDebug($"{name} -> Start() -> NOT IsHost");
+            ModLogger.LogDebug($"{name} -> Start() -> NOT IsHost");
         }
     }
 
     public void UpdateMonitor()
     {
-        Log.LogDebug($"{name} -> UpdateMonitor()");
+        ModLogger.LogDebug($"{name} -> UpdateMonitor()");
         textMesh.text = Config.HideDay.Value ? string.Empty : $"DAY:\n{StartOfRound.Instance.gameStats.daysSpent}";
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using DunGen;
-using GameNetcodeStuff;
 using HarmonyLib;
 using OpenMonitors.Monitors;
 using Unity.Netcode;
@@ -21,10 +20,8 @@ public class PlayerControllerB
 
     private static IEnumerator WaitOnPlayerConnectForMonitorsToBeCreated()
     {
-        Log.LogDebug("WaitOnPlayerConnectForMonitorsToBeCreated");
-        yield return new WaitUntil(
-            () => Object.FindObjectOfType<CreditsMonitor>() && Object.FindObjectOfType<LifeSupportMonitor>()
-        );
+        ModLogger.LogDebug("WaitOnPlayerConnectForMonitorsToBeCreated");
+        yield return new WaitUntil(() => CreditsMonitor.Instance && LifeSupportMonitor.Instance);
         CreditsMonitor.Instance.UpdateMonitor();
         LifeSupportMonitor.Instance.UpdateMonitor();
         PlayersLifeSupportMonitor.Instance.UpdateMonitor();
@@ -40,7 +37,7 @@ public class PlayerControllerB
             var componentInChildren = networkObject.gameObject.GetComponentInChildren<GrabbableObject>();
             if (componentInChildren.isInShipRoom || componentInChildren.isInElevator)
             {
-                Log.LogDebug("PlayerControllerB.RefreshLootOnPickupClient");
+                ModLogger.LogDebug("PlayerControllerB.RefreshLootOnPickupClient");
                 LootMonitor.Instance.UpdateMonitor();
             }
         }
@@ -57,7 +54,7 @@ public class PlayerControllerB
     {
         if (droppedInShipRoom || droppedInElevator)
         {
-            Log.LogDebug("PlayerControllerB.RefreshLootOnThrowClient");
+            ModLogger.LogDebug("PlayerControllerB.RefreshLootOnThrowClient");
             LootMonitor.Instance.UpdateMonitor();
         }
     }
@@ -71,11 +68,11 @@ public class PlayerControllerB
         int deathAnimation
     )
     {
-        Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeath");
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeath");
         LifeSupportMonitor.Instance.UpdateMonitor();
         PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.KillPlayerClientRpc))]
     private static void UpdateLifeSupportMonitorOnPlayerDeathClientRpc(
@@ -86,8 +83,53 @@ public class PlayerControllerB
         int deathAnimation
     )
     {
-        Log.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeathClientRpc");
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDeathClientRpc");
         LifeSupportMonitor.Instance.UpdateMonitor();
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.DamagePlayer))]
+    private static void UpdateLifeSupportMonitorOnPlayerDamage(
+        int damageNumber,
+        bool hasDamageSFX,
+        bool callRPC,
+        CauseOfDeath causeOfDeath,
+        int deathAnimation,
+        bool fallDamage,
+        Vector3 force
+    )
+    {
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDamage");
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.DamageOnOtherClients))]
+    private static void UpdateLifeSupportMonitorForPlayerDamageOnOtherClients(int damageNumber, int newHealthAmount)
+    {
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorForPlayerDamageOnOtherClients");
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.DamagePlayerClientRpc))]
+    private static void UpdateLifeSupportMonitorOnPlayerDamageClientRpc(int damageNumber, int newHealthAmount)
+    {
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnPlayerDamageClientRpc");
+        PlayersLifeSupportMonitor.Instance.UpdateMonitor();
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.DamagePlayerFromOtherClientClientRpc))]
+    private static void UpdateLifeSupportMonitorOnOtherClientPlayerDamageClientRpc(
+        int damageAmount,
+        Vector3 hitDirection,
+        int playerWhoHit,
+        int newHealthAmount
+    )
+    {
+        ModLogger.LogDebug("PlayerControllerB.UpdateLifeSupportMonitorOnOtherClientPlayerDamageClientRpc");
         PlayersLifeSupportMonitor.Instance.UpdateMonitor();
     }
 }

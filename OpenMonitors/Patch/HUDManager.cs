@@ -11,7 +11,7 @@ public class HUDManager
     [HarmonyPatch(nameof(global::HUDManager.ApplyPenalty))]
     private static void UpdateCreditsAfterDeadPlayersPenalty()
     {
-        Log.LogDebug("HUDManager.UpdateCreditsAfterDeadPlayersPenalty");
+        ModLogger.LogDebug("HUDManager.UpdateCreditsAfterDeadPlayersPenalty");
         CreditsMonitor.Instance.UpdateMonitor();
     }
 }

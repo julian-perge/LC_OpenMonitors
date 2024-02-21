@@ -13,11 +13,11 @@ public class TimeMonitor : MonoBehaviour
 
     public void Start()
     {
-        Log.LogDebug($"{name} -> Start()");
+        ModLogger.LogDebug($"{name} -> Start()");
         if (!Instance) Instance = this;
         textMesh = GetComponent<TextMeshProUGUI>();
         textMesh.text = Config.HideTime.Value ? string.Empty : "TIME:\n7:30\nAM";
-        Log.LogDebug($"{name} -> Start() end");
+        ModLogger.LogDebug($"{name} -> Start() end");
     }
 
     public void UpdateMonitor()

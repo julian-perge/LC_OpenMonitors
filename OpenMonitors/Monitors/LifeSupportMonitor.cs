@@ -12,16 +12,18 @@ public class LifeSupportMonitor : MonoBehaviour
 
     public void Start()
     {
-        Log.LogDebug($"{name} -> Start()");
+        ModLogger.LogDebug($"{name} -> Start()");
         if (!Instance) Instance = this;
         _textMesh = GetComponent<TextMeshProUGUI>();
-        Log.LogDebug($"{name} -> Start() -> UpdateMonitor()");
+        ModLogger.LogDebug($"{name} -> Start() -> UpdateMonitor()");
         UpdateMonitor();
     }
 
     public void UpdateMonitor()
     {
-        Log.LogDebug($"{name} -> UpdateMonitor()");
-        _textMesh.text = Config.HideLifeSupport.Value ? string.Empty : $"ALIVE:\n${StartOfRound.Instance.livingPlayers}";
+        ModLogger.LogDebug($"{name} -> UpdateMonitor()");
+        _textMesh.text = Config.HideLifeSupport.Value
+            ? string.Empty
+            : $"ALIVE:\n{StartOfRound.Instance.livingPlayers} / {StartOfRound.Instance.connectedPlayersAmount + 1}";
     }
 }

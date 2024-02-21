@@ -17,6 +17,13 @@ While the `CorporateRestructure` mod gave most of what I wanted:
     - I _could_ have made a `Prefix` patch for that one specific method, but to me that's a band-aid fix, and patching
       patches is a _really_ bad practice IMO.
 
+## Issues / Bug Reports
+
+Please open a [Github issue here](https://github.com/julian-perge/LC_OpenMonitors/issues) if you encounter any problems,
+or quirks!
+
+With that, please describe the steps to reproduce the issue if you can, and if possible, provide a short video!
+
 ## New Monitors [Client]
 
 _Each monitor may be hidden from view via configuration setting._
@@ -26,18 +33,19 @@ _Each monitor may be hidden from view via configuration setting._
 - Credits
 - Total Days (Clients display `?` until the first day is completed)
 - Life Support (Number of players still alive)
-- Players Life Support 
-    - Overlays on top of the outside camera ship monitor. 
+- Players Life Support
+    - Overlays on top of the outside camera ship monitor.
     - Shows, by name, the life support of each player.
+        - Names exceeding length greater than fifteen will have the last three characters replaced with `...`
     - Should a player go to forever sleep, their name will have `(DEAD)` in red next to their name.
-    - Should a player receive harm to their health, but not sleep forever (<= 50), their name will have `(INJURED)` in
+    - Should a player receive harm to their health, but not sleep forever (<= 50), their name will have `(HURT)` in
       yellow next to their name.
 
-![img.png](https://imgur.com/uULiUwe.png)
+![img.png](https://imgur.com/v5hdqpF.png)
 
-![img.png](https://imgur.com/KEyFney.png)
+![img.png](https://imgur.com/d2Dts7I.png)
 
-![img.png](https://imgur.com/8hdpjWP.png)
+![img.png](https://imgur.com/tuK5cED.png)
 
 ## Navigation Monitor [Client]
 
