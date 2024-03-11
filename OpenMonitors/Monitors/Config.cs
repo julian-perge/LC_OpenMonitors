@@ -36,6 +36,9 @@ public static class Config
 
     public static ConfigEntry<int> TimeMonitorSlot { get; private set; } = null!;
 
+    public static ConfigEntry<bool> KeepBlueBackground1 { get; private set; } = null!;
+    public static ConfigEntry<bool> KeepBlueBackground2 { get; private set; } = null!;
+
     public static void Initialize()
     {
         HideWeather = ModConfig.Bind(
@@ -134,6 +137,20 @@ public static class Config
             "CreditsMonitorSlot",
             8,
             $"Slot for the Credits Monitor. {AllowableSlotValues}"
+        );
+
+        KeepBlueBackground1 = ModConfig.Bind(
+            MonitorSection,
+            "KeepBlueBackground - Monitor 1",
+            false,
+            $"Keeps the blue background on Monitor 1 (Quota)"
+        );
+
+        KeepBlueBackground2 = ModConfig.Bind(
+            MonitorSection,
+            "KeepBlueBackground - Monitor 2",
+            false,
+            $"Keeps the blue background on Monitor 2 (Deadline)"
         );
 
         // Check if any slot values are equal to 3, and if so, set it back to default
