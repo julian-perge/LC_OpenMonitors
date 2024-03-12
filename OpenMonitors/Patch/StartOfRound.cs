@@ -189,9 +189,8 @@ public class StartOfRound
     }
     private static string ParseColorInput(string input)
     {
-        Console.WriteLine("in parser");
         Regex reg = new Regex(@"(?i)[0-9a-f]{6}");                                                          //matches any 6 character combination of digits and case-insensitive letters
-        if (reg.IsMatch(input)) { Console.WriteLine("match"); return input; }                               //if match return
-        else { Console.WriteLine("no match"); return ""; }                                                  //no match returns empty string
+        if (reg.IsMatch(input)) { return input; }                               //if match return
+        else { return ""; }                                                  //no match returns empty string
     }
 }
