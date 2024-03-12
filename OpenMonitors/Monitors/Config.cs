@@ -6,6 +6,7 @@ namespace OpenMonitors.Monitors;
 public static class Config
 {
     private const string MonitorSection = "Monitors";
+    private const string MonitorWeatherColors = "MonitorWeatherColors";
 
     private const string AllowableSlotValues = "Possible Slots: 1, 2, 4, 5, 6, 7, 8";
 
@@ -38,6 +39,18 @@ public static class Config
 
     public static ConfigEntry<bool> KeepBlueBackground1 { get; private set; } = null!;
     public static ConfigEntry<bool> KeepBlueBackground2 { get; private set; } = null!;
+
+    //weather colors
+    public static ConfigEntry<string> NoneWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> RainyWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> FoggyWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> StormyWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> FloodedWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> EclipsedWeatherColor { get; private set; } = null!;
+    public static ConfigEntry<string> DustCloudsWeatherColor { get; private set; } = null!;
+
+
+
 
     public static void Initialize()
     {
@@ -152,6 +165,55 @@ public static class Config
             false,
             $"Keeps the blue background on Monitor 2 (Deadline)"
         );
+
+        NoneWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "No weather:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        RainyWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Rainy:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        FoggyWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Foggy:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        StormyWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Stormy:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        FloodedWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Flooded:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        EclipsedWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Eclipsed:",
+           "",
+           $"Input 6 character hex code for weather coloring"
+       );
+
+        DustCloudsWeatherColor = ModConfig.Bind(
+           MonitorWeatherColors,
+           "Dust Clouds:",
+           "",
+           $"Input 6 character color hex code for weather coloring"
+       );
 
         // Check if any slot values are equal to 3, and if so, set it back to default
         if (ProfitQuotaMonitorSlot.Value == 3) ProfitQuotaMonitorSlot.Value = (int)ProfitQuotaMonitorSlot.DefaultValue;
