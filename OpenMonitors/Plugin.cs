@@ -10,7 +10,7 @@ public static class ModInfo
 {
     public const string Name = "OpenMonitors";
     public const string Guid = "xxxstoner420bongmasterxxx.open_monitors";
-    public const string Version = "1.1.0";
+    public const string Version = "1.1.1";
 }
 
 [BepInPlugin(ModInfo.Guid, ModInfo.Name, ModInfo.Version)]

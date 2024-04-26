@@ -156,63 +156,63 @@ public static class Config
             MonitorSection,
             "KeepBlueBackground - Monitor 1",
             false,
-            $"Keeps the blue background on Monitor 1 (Quota)"
+            "Keeps the blue background on Monitor 1 (Quota)"
         );
 
         KeepBlueBackground2 = ModConfig.Bind(
             MonitorSection,
             "KeepBlueBackground - Monitor 2",
             false,
-            $"Keeps the blue background on Monitor 2 (Deadline)"
+            "Keeps the blue background on Monitor 2 (Deadline)"
         );
 
         NoneWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "No weather:",
            "69FF69",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         RainyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Rainy:",
            "FFF01C",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         FoggyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Foggy:",
            "FFF01C",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         StormyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Stormy:",
            "FF9B00",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         FloodedWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Flooded:",
            "FF9B00",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         EclipsedWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Eclipsed:",
            "FF0000",
-           $"Input 6 character hex code for weather coloring"
+           "Input 6 character hex code for weather coloring"
        );
 
         DustCloudsWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Dust Clouds:",
            "69FF69",
-           $"Input 6 character color hex code for weather coloring"
+           "Input 6 character color hex code for weather coloring"
        );
 
         // Check if any slot values are equal to 3, and if so, set it back to default

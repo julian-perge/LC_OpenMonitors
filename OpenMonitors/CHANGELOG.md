@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Corrected logic for color parsing
+
 # 1.1.0
 
 - Updated game version to `v50`

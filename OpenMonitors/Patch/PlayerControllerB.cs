@@ -92,6 +92,7 @@ public class PlayerControllerB
     [HarmonyPatch(nameof(GameNetcodeStuff.PlayerControllerB.DamagePlayer))]
     private static void UpdateLifeSupportMonitorOnPlayerDamage(
         int damageNumber,
+        // ReSharper disable once InconsistentNaming
         bool hasDamageSFX,
         bool callRPC,
         CauseOfDeath causeOfDeath,
