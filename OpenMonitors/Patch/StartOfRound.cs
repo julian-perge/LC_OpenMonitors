@@ -1,12 +1,10 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
+using BepInEx.Configuration;
 using HarmonyLib;
 using OpenMonitors.Monitors;
 using TMPro;
 using static OpenMonitors.Plugin;
-using System.Runtime.Serialization;
-using System.Text.RegularExpressions;
-using System;
-using UnityEngine;
 
 namespace OpenMonitors.Patch;
 
@@ -76,8 +74,7 @@ public class StartOfRound
         PlayersLifeSupportMonitor.Instance.UpdateMonitor();
         LootMonitor.Instance.UpdateMonitor();
     }
-    
-    
+
     [HarmonyPostfix]
     [HarmonyPatch(nameof(global::StartOfRound.OnPlayerConnectedClientRpc))]
     private static void UpdateMonitorsWhenPlayerConnectsClientRpc(
@@ -90,7 +87,7 @@ public class StartOfRound
         int profitQuota,
         int timeUntilDeadline,
         int quotaFulfilled,
-        int randomSeed  
+        int randomSeed
     )
     {
         ModLogger.LogDebug("StartOfRound.UpdateMonitorsWhenPlayerConnectsClientRpc");
@@ -116,81 +113,43 @@ public class StartOfRound
     // ReSharper disable twice InconsistentNaming
     private static void ColorWeather(ref TextMeshProUGUI ___screenLevelDescription, ref SelectableLevel ___currentLevel)
     {
-        ___screenLevelDescription.text = new StringBuilder()
-            .Append("Orbiting: ")
-            .AppendLine(___currentLevel.PlanetName)
-            .Append("Weather: ")
-            .AppendLine(FormatWeather(___currentLevel.currentWeather))
-            .Append(___currentLevel.LevelDescription ?? string.Empty)
-            .ToString();
+        var builder = new StringBuilder("Orbiting: ").AppendLine(___currentLevel.PlanetName);
+
+        if (!Config.HideWeather.Value)
+        {
+            builder
+                .Append("Weather: ")
+                .AppendLine(FormatWeather(___currentLevel.currentWeather));
+        }
+
+        builder.Append(___currentLevel.LevelDescription ?? string.Empty);
+
+        ___screenLevelDescription.text = builder.ToString();
     }
 
     private static string FormatWeather(LevelWeatherType currentWeather)
     {
         ModLogger.LogDebug($"Weather: {currentWeather}");
-        string text = "";           
 
-        //if current weather has 6-digit hex color in config, calls regex parser to make sure it is correct
-        //then sets that value to text var
-        switch (currentWeather)
+        // Verifies the config is a valid hex color code, or defaults to `LimeGreen`
+        string text = currentWeather switch
         {
-            case LevelWeatherType.Rainy:
-                text = ParseColorInput(Config.RainyWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.Foggy:
-                text = ParseColorInput(Config.FoggyWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.Stormy:
-                text = ParseColorInput(Config.StormyWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.Flooded:
-                text = ParseColorInput(Config.FloodedWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.Eclipsed:
-                text = ParseColorInput(Config.EclipsedWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.None:
-                text = ParseColorInput(Config.NoneWeatherColor.Value.ToString());
-                break;
-            case LevelWeatherType.DustClouds:
-                text = ParseColorInput(Config.DustCloudsWeatherColor.Value.ToString());
-                break;
-            default:
-                break;
-        }
-
-        if (text == string.Empty)                                           //uses default text formatting if config input is empty or invalid
-        {
-            switch (currentWeather)
-            {
-                case LevelWeatherType.Rainy:
-                case LevelWeatherType.Foggy:
-                    // yellow
-                    text = "FFF01C";
-                    break;
-                case LevelWeatherType.Stormy:
-                case LevelWeatherType.Flooded:
-                    // orange
-                    text = "FF9B00";
-                    break;
-                case LevelWeatherType.Eclipsed:
-                    // red
-                    text = "FF0000";
-                    break;
-                case LevelWeatherType.None:
-                case LevelWeatherType.DustClouds:
-                default:
-                    // lime green
-                    text = "69FF69";
-                    break;
-            }
-        }
+            LevelWeatherType.DustClouds => ParseColorInput(Config.DustCloudsWeatherColor),
+            LevelWeatherType.Eclipsed => ParseColorInput(Config.EclipsedWeatherColor),
+            LevelWeatherType.Flooded => ParseColorInput(Config.FloodedWeatherColor),
+            LevelWeatherType.Foggy => ParseColorInput(Config.FoggyWeatherColor),
+            LevelWeatherType.None => ParseColorInput(Config.NoneWeatherColor),
+            LevelWeatherType.Rainy => ParseColorInput(Config.RainyWeatherColor),
+            LevelWeatherType.Stormy => ParseColorInput(Config.StormyWeatherColor),
+            _ => Config.NoneWeatherColor.DefaultValue.ToString()
+        };
         return $"<color=#{text}>{currentWeather}</color>";
     }
-    private static string ParseColorInput(string input)
+
+    private static string ParseColorInput(ConfigEntry<string> input)
     {
-        Regex reg = new Regex(@"(?i)[0-9a-f]{6}");                                                          //matches any 6 character combination of digits and case-insensitive letters
-        if (reg.IsMatch(input)) { return input; }                               //if match return
-        else { return ""; }                                                  //no match returns empty string
+        // Matches any 6 character combination of digits and case-insensitive letters
+        Regex reg = new Regex(@"(?i)[0-9a-f]{6}");
+        return reg.IsMatch(input.Value.Replace("#", "")) ? input.Value : input.DefaultValue.ToString();
     }
 }

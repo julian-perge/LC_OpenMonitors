@@ -169,49 +169,49 @@ public static class Config
         NoneWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "No weather:",
-           "",
+           "69FF69",
            $"Input 6 character hex code for weather coloring"
        );
 
         RainyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Rainy:",
-           "",
+           "FFF01C",
            $"Input 6 character hex code for weather coloring"
        );
 
         FoggyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Foggy:",
-           "",
+           "FFF01C",
            $"Input 6 character hex code for weather coloring"
        );
 
         StormyWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Stormy:",
-           "",
+           "FF9B00",
            $"Input 6 character hex code for weather coloring"
        );
 
         FloodedWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Flooded:",
-           "",
+           "FF9B00",
            $"Input 6 character hex code for weather coloring"
        );
 
         EclipsedWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Eclipsed:",
-           "",
+           "FF0000",
            $"Input 6 character hex code for weather coloring"
        );
 
         DustCloudsWeatherColor = ModConfig.Bind(
            MonitorWeatherColors,
            "Dust Clouds:",
-           "",
+           "69FF69",
            $"Input 6 character color hex code for weather coloring"
        );
 

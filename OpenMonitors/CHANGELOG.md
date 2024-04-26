@@ -1,3 +1,11 @@
+# 1.1.0
+
+- Updated game version to `v50`
+- Updated project to use `netstandard2.1`
+- Fixed `HideWeather` configuration not working.
+- Added option for removing the blue background of the `Profit Quota` and `Deadline` monitors. [d-rafferty](https://github.com/julian-perge/LC_OpenMonitors/pull/5)
+- Added options for modifying the color text of the weather. [d-rafferty](https://github.com/julian-perge/LC_OpenMonitors/pull/5)
+
 # 1.0.5
 
 - `Player's Life Support` monitor:

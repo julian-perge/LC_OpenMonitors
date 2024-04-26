@@ -47,6 +47,10 @@ _Each monitor may be hidden from view via configuration setting._
 
 ![img.png](https://imgur.com/tuK5cED.png)
 
+## Changing the Weather Color
+
+You can change the weather color using a valid hex code, such as `69FF69` or `#69FF69`. 
+
 ## Navigation Monitor [Client]
 
 _Weather can be hidden from `Terminal` and `Navigation` monitor via configuration setting._
