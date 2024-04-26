@@ -77,7 +77,7 @@ internal static class Setup
         _mainContainer = GameObject.Find(MonitorContainerPath);
         // QUOTA: $0 / $509
         _quotaMonitorText = GameObject.Find(MonitorContainerPath + "/HeaderText");
-        _quotaMonitorText.name = "ProfitQuota";
+        // _quotaMonitorText.name = "ProfitQuota";
         var (qLocalPosition, qLocalRotation) = MonitorPositionsBySlots[Config.ProfitQuotaMonitorSlot.Value];
         _quotaMonitorText.transform.localPosition = qLocalPosition;
         _quotaMonitorText.transform.localRotation = Quaternion.Euler(qLocalRotation);
@@ -97,7 +97,7 @@ internal static class Setup
 
         // DEADLINE: 7 Days, 3 hours
         _deadlineMonitorText = GameObject.Find(MonitorContainerPath + "/HeaderText (1)");
-        _deadlineMonitorText.name = "Deadline";
+        // _deadlineMonitorText.name = "Deadline";
         var (dLocalPosition, dLocalRotation) = MonitorPositionsBySlots[Config.DeadlineMonitorSlot.Value];
         _deadlineMonitorText.transform.localPosition = dLocalPosition;
         _deadlineMonitorText.transform.localRotation = Quaternion.Euler(dLocalRotation);
