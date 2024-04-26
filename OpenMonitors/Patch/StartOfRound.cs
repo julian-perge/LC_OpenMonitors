@@ -132,7 +132,7 @@ public class StartOfRound
         ModLogger.LogDebug($"Weather: {currentWeather}");
 
         // Verifies the config is a valid hex color code, or defaults to `LimeGreen`
-        string text = currentWeather switch
+        var weatherColor = currentWeather switch
         {
             LevelWeatherType.DustClouds => ParseColorInput(Config.DustCloudsWeatherColor),
             LevelWeatherType.Eclipsed => ParseColorInput(Config.EclipsedWeatherColor),
@@ -143,13 +143,14 @@ public class StartOfRound
             LevelWeatherType.Stormy => ParseColorInput(Config.StormyWeatherColor),
             _ => Config.NoneWeatherColor.DefaultValue.ToString()
         };
-        return $"<color=#{text}>{currentWeather}</color>";
+        return $"<color=#{weatherColor}>{currentWeather}</color>";
     }
 
-    private static string ParseColorInput(ConfigEntry<string> input)
+    private static string ParseColorInput(ConfigEntry<string> entry)
     {
         // Matches any 6 character combination of digits and case-insensitive letters
-        Regex reg = new Regex(@"(?i)[0-9a-f]{6}");
-        return reg.IsMatch(input.Value.Replace("#", "")) ? input.Value : input.DefaultValue.ToString();
+        var cleanedColorValue = entry.Value.Replace("#", "");
+        var reg = new Regex(@"(?i)[0-9a-f]{6}");
+        return reg.IsMatch(cleanedColorValue) ? cleanedColorValue : entry.DefaultValue.ToString();
     }
 }
